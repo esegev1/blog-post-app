@@ -1,0 +1,125 @@
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+}
+
+h1 {
+    font-size: 2.3rem;
+}
+
+/*******************************
+/          BLOG POST LAYOUT
+/
+******************************/
+
+.blog-item-wrapper {
+    max-width: 1200px;
+}
+
+.blog-item-wrapper .blog-item-top-wrapper {
+    margin-bottom: 25px;
+    width: 1200px !important;
+}
+
+.blog-item-inner-wrapper {
+    max-width: 1200px !important;
+    margin: 0 0 0 0 !important;
+}
+
+
+.blog-item-wrapper article.entry {
+    padding: 2vw;
+}
+
+.container {
+    margin-left: 10px;
+    .card h2 {
+        display: visible;
+
+    }
+
+    .card h2 {
+        border-top: solid black 1px;
+        max-width: 600px;
+        padding-top: 20px;
+        margin-top: 20px !important;
+    }
+
+    .recipe-video-container {
+        margin: auto auto 10px 0;
+
+        .recipe-video {
+            display: block;
+            margin: auto auto 15px 0;
+            max-width: 600px;
+        }
+
+        .ig-link {
+            font-size: 0.85rem;
+            color: #0073e6;
+            text-decoration: none;
+            margin-left: 0;
+        }
+    }
+
+    .recipe-image {
+        max-width: 600px;
+    }
+
+    .recipe-image img {
+        max-width: 600px;
+        object-fit: contain;
+    }
+
+    .intro-paragraphs {
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        margin: 0 0 0 0;
+        font-size: 2.1rem;
+    }
+
+    ul {
+        margin: 5px auto 10px auto !important;
+        font-size: 1.05rem;
+    }
+
+    p {
+        font-size: 1.05rem;
+    }
+
+    .instructions p {
+        margin: 0 auto 15px 20px !important;
+    }
+}
+
+.container:not(:only-child) {
+    h2 {
+        display: hidden;
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .recipe-video {
+        width: 100%;
+    }
+
+    .recipe-image {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .blog-item-wrapper .blog-item-top-wrapper {
+        margin-bottom: 25px;
+        max-width: 100% !important;
+    }
+}
+
+
+video {
+    object-fit: contain;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}

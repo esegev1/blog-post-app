@@ -41,7 +41,7 @@ form {
     background: #f3f3f3;
     /* max-width: 400px; */
     padding: 7px;
-    border-bottom: 1px solid #999999;
+    border-bottom: 2px solid #999999;
     border-radius: 7px 7px 0px 0px;
 }
 
@@ -54,6 +54,7 @@ textarea {
     border: none;
     font-size: 1rem;
     font-family: "Roboto", sans-serif; 
+    margin-bottom: 16px;
 }
 
 .text-input-container input::placeholder,
@@ -62,9 +63,10 @@ textarea::placeholder {
 }
 
 /* remove outline from input boxes */
-.text-input-container input,
+.text-input-container input:focus,
 textarea:focus {
     outline: none;
+    margin-bottom: 0px;
 }
 
 /* apply border won the div when input within is focused  */

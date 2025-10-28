@@ -1,0 +1,32 @@
+<h1><%= post.title  %></h1>
+<div class='container'>
+   <div class='card'>
+       <div class='recipe-video-container'>
+           <video controls class='recipe-video' poster='/uploads/<%= post.previewImageUrl  %>'>
+               <source src='/uploads/<%= post.videoUrl  %>' type='video/mp4'>
+           </video>
+           <a href='<%= post.iguRL  %>' class='ig-link'>See it on Instagram</a>
+       </div>
+       <div class='intro-paragraphs'>
+           <P><%= post.intro  %></P>
+       </div>
+       <div class='ingredients'>
+           <h3>Ingredients</h3>
+           <ul>
+           <% for(let x=0; x< post.ingredients.length;x++) { %>
+               <li><%= post.ingredients[x]  %></li>
+            <% } %>
+           </ul>
+       </div>
+       <div class='instructions'>
+            <h3>Instructions</h3>
+            <% for(let i=0; i< post.instructions.length;i++) { %>
+                <P><%= post.instructions[i] %></P>
+            <% } %>
+       </div>
+       <div class='recipe-image'>
+           <img
+               src='/uploads/<%= post.imageUrl  %>'>
+       </div>
+   </div>
+</div>

@@ -4,10 +4,11 @@ const mongoose = require('mongoose');
 const postSchema = new mongoose.Schema({
     title: String, 
     intro: String,
-    ingredients: String,
-    instructions: String,
+    ingredients: Array,
+    instructions: Array,
     imageUrl: String,
     videoUrl: String,
+    previewImageUrl: String,
     igUrl: String,
 });
 
