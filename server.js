@@ -7,9 +7,6 @@ const morgan = require('morgan');
 const fs = require('fs');
 const ejs = require('ejs');
 
-
-// const upload = multer({ dest: 'IMG_UPLOAD_PATH' });
-
 const app = express();
 const path = require('path');
 const Post = require('./models/post.js');
@@ -26,16 +23,13 @@ const storage = multer.diskStorage({
         cb(null, imgUploadPath);
     },
     filename: function (req, file, cb) {
-        // console.log(`in storage, req: ${JSON.stringify(file)}`)
-        // console.log(``);
-        // console.log(`req: ${JSON.stringify(req.body)}`);
         // Create unique filename using timestamp and original extension
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         cb(null, file.fieldname + '-' + file.originalname);
     }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage, limits: { fileSize: 500 * 1024 * 1024 } });
 
 //serve statis files (css) from the public directory
 app.use(express.static(process.env.PUBLIC_PATH));
@@ -85,6 +79,7 @@ app.get('/post', async (req, res) => {
 //show list of historical posts, user can delete or view from there
 app.get('/log', async (req, res) => {
     const allPosts = await Post.find();
+
     res.render(`posts/log.ejs`, {
         posts: allPosts,
     });
@@ -136,6 +131,8 @@ app.post('/post', upload.fields([
         videoUrl: req.files['videoUrl'][0].filename,
         previewImageUrl: req.files['previewImageUrl'][0].filename,
         igUrl: req.body.igUrl,
+        uploadDate: new Date(),
+
     }
     console.log(`reqObj: ${JSON.stringify(reqObj)}`);
     console.log(``);

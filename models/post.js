@@ -10,6 +10,7 @@ const postSchema = new mongoose.Schema({
     videoUrl: String,
     previewImageUrl: String,
     igUrl: String,
+    uploadDate: Date,
 });
 
 //compile schema

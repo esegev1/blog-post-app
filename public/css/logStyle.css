@@ -1,6 +1,7 @@
 body {
     font-family: "Roboto", sans-serif;
     margin: 0;
+
 }
 
 header {
@@ -25,6 +26,12 @@ header form {
 }
 
 /* Mark some of the table elements as display only to ignore for flezbox */
+thead th {
+    border-bottom: 2px solid #24A590;
+    color: #24A590;
+}
+
+
 thead,
 tr,
 tbody {
@@ -33,11 +40,12 @@ tbody {
 
 table {
     width: 100%;
-    margin-top: 15px;
-    margin-left: 15px;
+    /* margin-top: 15px;
+    margin-left: 15px; */
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1.75fr .75fr .5fr;
     text-align: left;
+    gap: 0;
 }
 
 button {
@@ -52,10 +60,19 @@ img {
     width: 15px;
 }
 
+/* Color even rows */
+tbody tr:nth-child(even) td {
+    background-color: #f3f3f3;
+}
+
+th, td {
+    padding: 8px 12px;
+}
+
 .user-actions {
     display: flex;
     gap: 7px;
-    justify-content: left;
+    justify-content: center;
 }
 
 .create-post {
@@ -69,4 +86,27 @@ img {
     width: 100px;
     height: 20px;
 
+}
+
+.log-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+    
+
+}
+
+.table-container {
+    max-width: 1000px;
+    width: 100%;
+    box-shadow: 5px 5px 10px #8a9fbe;
+    border-radius: 7px;
+    padding: 10px;
+
+}
+
+.post-id {
+    display: flex;
+    gap: 4px;
 }
