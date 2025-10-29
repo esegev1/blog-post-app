@@ -1,0 +1,63 @@
+<form action="<%=  action %>" method="<%=  method %>" enctype="multipart/form-data">
+    <div class="form-group">
+        <div class="text-input-container">
+            <% const title=postExists ? post.title : '' %>
+                <label for="title" hidden>Title </label>
+                <input type="text" class="form-control" name="title" Placeholder="Write a title for the post..."
+                    value="<%= title %>" required spellcheck="true" />
+        </div>
+
+        <div class="text-input-container">
+            <% const intro=postExists ? post.intro : '' %>
+                <label for="intro" hidden>Intro</label>
+                <textarea class="form-control" placeholder="Input the intro..." name="intro" rows="4" required
+                    spellcheck="true"><%= intro  %></textarea>
+        </div>
+        <div class="text-input-container">
+            <% const ingredients=postExists ? post.ingredients : '' %>
+                <label for="ingredients" hidden>Ingredients</label>
+                <textarea class="form-control" name="ingredients" placeholder="Input the ingrdients..." rows="4"
+                    required spellcheck="true"><%= postExists ? ingredients.join('\n') : '' %></textarea>
+
+        </div>
+        <div class="text-input-container">
+            <% const instructions=postExists ? post.instructions : '' %>
+                <label for="instructions" hidden>Instructions</label>
+                <textarea class="form-control" placeholder="Input the instructions..." name="instructions" rows="4"
+                    required><%= postExists ? instructions.join('\n') : '' %></textarea>
+        </div>
+        <div class="file-uploads-container">
+            <div class="file-input-container">
+                <label for="videoUrl" class="file-upload">
+                    <img src="/images/add.png" />
+                    Add Video
+                </label>
+                <input type="file" class="form-control-file" id="videoUrl" name="videoUrl" accept="video/*" <%= fileRequired %> />
+            </div>
+            <div class="file-input-container">
+
+                <label for="previewImageUrl" class="file-upload">
+                    <img src="/images/add.png" />
+                    Add Preview Image
+                </label>
+                <input type="file" class="form-control-file" id="previewImageUrl" name="previewImageUrl"
+                    accept="image/*" placeholder="test" <%= fileRequired %> />
+            </div>
+            <div class="file-input-container">
+
+                <label for="imageUrl" class="file-upload">
+                    <img src="/images/add.png" />
+                    Add Image
+                </label>
+                <input type="file" class="form-control-file" id="imageUrl" name="imageUrl" accept="image/*" <%= fileRequired %> />
+            </div>
+        </div>
+        <div class="text-input-container">
+            <% const igUrl=postExists ? post.igUrl : '' %>
+                <label for="igUrl" hidden>IG link</label>
+                <input type="text" class="form-control" id="igUrl" name="igUrl" Placeholder="Paste an IG link..."
+                    value="<%= igUrl %>" />
+        </div>
+        <button type="submit" id="post-form-submit" value="Preview Post">Preview Post</button>
+    </div>
+</form>

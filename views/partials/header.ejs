@@ -1,0 +1,8 @@
+<header>
+    <h1><%= headerTxt  %></h1>
+    <% if(button) { %>
+        <form action="<%= button.action %>" method="<%= button.method %>">
+            <button type="submit" value="<%= button.value %>" class="<%= button.class %>"><%= button.value %></button>
+        </form>   
+    <% } %>
+</header>

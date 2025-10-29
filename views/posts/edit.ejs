@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head.ejs',{
+        css: 'homeStyle', 
+        title: 'Post Creation',
+        script: '/js/script.js'
+    }) %>
+
+<body>
+    <%- include('../partials/header.ejs', {
+        headerTxt: `Post Creation`,
+        button: {
+            action: '/log',
+            method: 'GET',
+            class: 'post-log',
+            value: 'Post Log'
+        }
+    }) %>
+    <% const postExists = typeof post !== 'undefined' ? true : false %>
+
+    <%- include('../partials/inputs.ejs', {
+        postExists: postExists,
+        action: `/post/${post._id}/?_method=PUT`,
+        method: 'POST',
+        fileRequired: ''
+        }) %>
+</body>
+
+</html>

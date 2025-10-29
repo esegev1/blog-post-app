@@ -1,70 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('partials/index-head.ejs') %>
+<%- include('partials/head.ejs',{
+        css: 'homeStyle', 
+        title: 'Post Creation',
+        script: '/js/script.js'
+    }) %>
 
-    <body>
-        <header>
-            <h1>Lets create a blog post!</h1>
-        </header>
-        <form action="/post" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <div class="text-input-container">
-                    <label for="title" hidden>Title </label>
-                    <input type="text" class="form-control" name="title" Placeholder="Write a title for the post...">
+<body>
+    <%- include('partials/header.ejs', {
+        headerTxt: `Post Creation`,
+        button: {
+            action: '/log',
+            method: 'GET',
+            class: 'post-log',
+            value: 'Post Log'
+        }
+    }) %>
+    <% const postExists = typeof post !== 'undefined' ? true : false %>
 
-                </div>
-
-                <div class="text-input-container">
-                    <label for="intro" hidden>Intro</label>
-                    <textarea class="form-control" placeholder="Input the intro..." name="intro" rows="4"></textarea>
-
-                </div>
-                <div class="text-input-container">
-                    <label for="ingredients" hidden>Ingredients</label>
-                    <textarea class="form-control" placeholder="Input the ingrdients..." name="ingredients"
-                        rows="4"></textarea>
-
-                </div>
-                <div class="text-input-container">
-                    <label for="instructions" hidden>Instructions</label>
-                    <textarea class="form-control" placeholder="Input the instructions..." name="instructions"
-                        rows="4"></textarea>
-                </div>
-                <div class="file-uploads-container">
-                    <div class="file-input-container">
-                        <label for="videoUrl" class="file-upload">
-                            <img src="https://i.imgur.com/kiv9xp3.png" />
-                            Add Video
-                        </label>
-                        <input type="file" class="form-control-file" id="videoUrl" name="videoUrl" accept="video/*">
-                    </div>
-                    <div class="file-input-container">
-
-                        <label for="previewImageUrl" class="file-upload">
-                            <img src="https://i.imgur.com/kiv9xp3.png" />
-                            Add Preview Image
-                        </label>
-                        <input type="file" class="form-control-file" id="previewImageUrl" name="previewImageUrl" accept="image/*"
-                            placeholder="test">
-                    </div>
-                    <div class="file-input-container">
-
-                        <label for="imageUrl" class="file-upload">
-                            <img src="https://i.imgur.com/kiv9xp3.png" />
-                            Add Image
-                        </label>
-                        <input type="file" class="form-control-file" id="imageUrl" name="imageUrl" accept="image/*"
-                            placeholder="test">
-                    </div>
-                </div>
-                <div class="text-input-container">
-                    <label for="igUrl" hidden>IG link</label>
-                    <input type="text" class="form-control" id="igUrl" name="igUrl" Placeholder="Paste an IG link...">
-                </div>
-                <button type="submit" value="Preview Post" class="preview-post">Preview Post</button>
-            </div>
-        </form>
-    </body>
+    <%- include('partials/inputs.ejs', {
+        postExists: postExists,
+        action: '/post',
+        method: 'POST',
+        fileRequired: 'required'
+        }) %>
+</body>
 
 </html>

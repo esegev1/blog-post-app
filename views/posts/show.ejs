@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('../partials/show-head.ejs') %>
+<%- include('../partials/head.ejs', {css: 'postStyle', script: '', title: 'Post Preview'}) %>
 
 <body>
-<%- include('../partials/post.ejs') %>
+    <%- include('../partials/header.ejs', {
+        headerTxt: `Post Preview`, 
+        button: null,
+    }) %>
+            
+    <%- include('../partials/post.ejs') %>
+
+    <%- include('../partials/footer.ejs')%> 
+
+
 </body>
 
 </html>

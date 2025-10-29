@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head.ejs',{
+        css: 'homeStyle', 
+        title: 'Post HTML',
+        script: ''
+    }) %>
+
+<body>
+    <%- include('../partials/header.ejs', {
+        headerTxt: `Post HTML`,
+        button: {
+            action: '/log',
+            method: 'GET',
+            class: 'all-posts',
+            value: 'All Post'
+        }
+    }) %>
+    
+    <div class="code-container">
+        <pre><code><%- htmlCode.replace(/</g, '&lt;').replace(/>/g, '&gt;') %></code></pre>
+    </div>
+
+</body>
+
+</html>

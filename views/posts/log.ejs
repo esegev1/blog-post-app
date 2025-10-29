@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head.ejs', {css: 'logStyle',script: '', title: 'Post Log'}) %>
+
+<body>
+    <%- include('../partials/header.ejs', {
+        headerTxt: `History`,
+        button: {
+            action: '/',
+            method: 'GET',
+            class: 'create-post',
+            value: 'Create Post'
+        }
+    }) %>
+
+<table>
+    <thead>
+        <tr>
+            <th>Post ID</th>
+            <th>Title</th>
+            <th>Upload Date</th>
+            <th>User Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% posts.forEach((post)=> { %>
+            <tr>
+                <td><%= post._id%></td>
+                <td><%= post.title%></td>
+                <td><%= post.uploadDate%></td>
+                <td class="user-actions">
+                    <form action="/post/<%= post._id%>?_method=DELETE" method="POST">
+                        <button>
+                            <img src="/images/delete.png" alt="Delete">
+                        </button>
+                    </form> 
+                    <a href="/post/<%= post._id%>">
+                        <img src="/images/view.png" alt="View">
+                    </a>
+
+                </td>
+            </tr>
+        <% }); %>
+    </tbody>
+</table>
+</body>
+</html>
