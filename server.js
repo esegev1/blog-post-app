@@ -58,7 +58,7 @@ app.get('/post/:postId', async (req, res) => {
     const post = await Post.findById(req.params.postId);
     res.render('posts/show.ejs', { 
         post: post,
-        publicPath : process.env.PUBLIC_IMG_PATH,
+        publicPath : '/uploads',
     });
 });
 
