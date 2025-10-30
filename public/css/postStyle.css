@@ -84,6 +84,7 @@ footer {
     margin-left: 10px;
     flex: 1;
     overflow-y: auto;
+    max-width: 1000px;
 
     .card h2 {
         display: visible;

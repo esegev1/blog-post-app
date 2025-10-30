@@ -6,6 +6,7 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const fs = require('fs');
 const ejs = require('ejs');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const path = require('path');
@@ -55,7 +56,10 @@ app.get('/', async (req, res) => {
 //Show post preview
 app.get('/post/:postId', async (req, res) => {
     const post = await Post.findById(req.params.postId);
-    res.render('posts/show.ejs', { post: post });
+    res.render('posts/show.ejs', { 
+        post: post,
+        publicPath : process.env.PUBLIC_IMG_PATH,
+    });
 });
 
 //Display the edit page
@@ -72,7 +76,8 @@ app.get('/post/:postId/edit', async (req, res) => {
 //Not used currently
 app.get('/post', async (req, res) => {
     res.render('posts/show.ejs', {
-        post: req.body
+        post: req.body,
+        publicPath : process.env.PUBLIC_IMG_PATH,
     });
 });
 
@@ -95,7 +100,33 @@ app.get('/html/:postId', async (req, res) => {
     const template = fs.readFileSync(partialPath, 'utf8');
 
     // Render the EJS template with your data
-    const renderedHtml = ejs.render(template, { post: postData });
+    const renderedHtml = ejs.render(template, { post: postData, publicPath : process.env.PUBLIC_IMG_PATH, });
+
+    // Create transporter
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD
+        }
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: process.env.EMAIL_TARGET,
+        subject: `html for: ${postData.title}`,
+        text: renderedHtml,
+        //html: html // optional HTML version
+    };
+
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent:', info.response);
+        // return info;
+    } catch (error) {
+        console.error('Error sending email:', error);
+        throw error;
+    }
 
     //pass renderedHtml to the output page
     res.render(`posts/output.ejs`, {

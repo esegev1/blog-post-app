@@ -163,3 +163,13 @@ textarea:focus {
     height: 20px;
 
 }
+
+.all-posts {
+    display: felx;
+    background: #999999;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 20px;
+}

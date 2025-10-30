@@ -3,8 +3,8 @@
     <h1><%= post.title  %></h1>
    <div class='card'>
        <div class='recipe-video-container'>
-           <video controls class='recipe-video' poster='/uploads/<%= post.previewImageUrl  %>'>
-               <source src='/uploads/<%= post.videoUrl  %>' type='video/mp4'>
+           <video controls class='recipe-video' poster='<%= publicPath %>/<%= post.previewImageUrl  %>'>
+               <source src='<%= publicPath %>/<%= post.videoUrl  %>' type='video/mp4'>
            </video>
            <a href='<%= post.iguRL  %>' class='ig-link'>See it on Instagram</a>
        </div>
@@ -27,7 +27,7 @@
        </div>
        <div class='recipe-image'>
            <img
-               src='/uploads/<%= post.imageUrl  %>'>
+               src='<%= publicPath %>/<%= post.imageUrl  %>'>
        </div>
    </div>
 </div>
