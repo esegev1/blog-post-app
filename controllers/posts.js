@@ -48,13 +48,13 @@ const html = async (req, res) => {
 
     // Render the EJS template with your data
     const renderedHtml = ejs.render(template, { post: postData, publicPath : process.env.PUBLIC_IMG_PATH, });
-
+    console.log(`renderedHtml: ${renderedHtml}`)
     // Create transporter
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASSWORD
+            pass: process.env.MAIL_PASSWORD
         }
     });
 
@@ -83,64 +83,49 @@ const html = async (req, res) => {
 
 //add recipe to database
 const post = async (req, res) => {
-    const ingredientsArr = req.body.ingredients
-        .split('\n')
-        .map(item => item.trim())
-        .filter(item => item.length > 0);
-
-    console.log(`ingredientsArr: ${ingredientsArr}`);
-    const instructionsArr = req.body.instructions
-        .split('\r\n')
-        .map(step => step.trim())
-        .filter(step => step.length > 0);
-
-    console.log(`instructionsArr: ${instructionsArr}`);
-
-    const reqObj = {
-        title: req.body.title,
-        intro: req.body.intro,
-        ingredients: ingredientsArr,
-        instructions: instructionsArr,
-        imageUrl: req.files['imageUrl'][0].filename,
-        videoUrl: req.files['videoUrl'][0].filename,
-        previewImageUrl: req.files['previewImageUrl'][0].filename,
-        igUrl: req.body.igUrl,
-        uploadDate: new Date(),
-
+    
+    try {
+        const ingredientsArr = req.body.ingredients
+            .split('\n')
+            .map(item => item.trim())
+            .filter(item => item.length > 0);
+        
+        const instructionsArr = req.body.instructions
+            .split('\r\n')
+            .map(step => step.trim())
+            .filter(step => step.length > 0);
+        
+        const reqObj = {
+            title: req.body.title,
+            intro: req.body.intro,
+            ingredients: ingredientsArr,
+            instructions: instructionsArr,
+            imageUrl: req.files['imageUrl'][0].filename,
+            videoUrl: req.files['videoUrl'][0].filename,
+            previewImageUrl: req.files['previewImageUrl'][0].filename,
+            igUrl: req.body.igUrl,
+            uploadDate: new Date(),
+        };
+        
+        console.log('✓ Creating post with:', reqObj);
+        const newPost = await Post.create(reqObj);
+        console.log('✓ Post created with ID:', newPost._id);
+        
+        res.redirect(`/post/${newPost._id}`);
+    } catch (error) {
+        console.error('❌ ERROR in post controller:', error);
+        res.status(500).send(`Error: ${error.message}`);
     }
-    console.log(`reqObj: ${JSON.stringify(reqObj)}`);
-    console.log(``);
-    const newPost = await Post.create(reqObj);
-    // console.log(`image: ${imageUrl}, video: ${videoUrl}`);
-    req.files.postId = newPost._id;
-    res.redirect(`/post/${newPost._id}`);
 };
 
 
 //update the databae for the post being edited
 const update = async (req, res) => {
-    console.log(`req.param ${req.params.postId}`);
-    console.log(`req.body: ${JSON.stringify(req.body)}`);
-    console.log(``);
-
-    const ingredientsArr = req.body.ingredients
-        .split('\n')
-        .map(item => item.trim())
-        .filter(item => item.length > 0);
-
-    console.log(`ingredientsArr: ${ingredientsArr}`);
-    const instructionsArr = req.body.instructions
-        .split('\r\n')
-        .map(step => step.trim())
-        .filter(step => step.length > 0);
-
-
     // const currentData = await Post.findById(req.params.contactId)
     const updateObj = {}
 
     //loop through all fields in the form, if there is any value include it in the update
     for (const field in req.body) {
-        console.log(`field: ${field}`)
         if (req.body[field] !== '') {
             //put ingredients and instructions in arrays to facilitate styling
             if (field === 'ingredients' || field === 'instructions') {
@@ -156,13 +141,11 @@ const update = async (req, res) => {
     //loop through all files in the form, if there is any value include it in the update
     for (const file in req.files) {
         let newFile = req.files[file][0];
-        console.log(`file: ${file}`);
         if (file.filename !== '') {
             newFile = req.files[file][0];
             updateObj[newFile.fieldname] = `${newFile.fieldname}-${newFile.originalname}`;
         }
     }
-    console.log(`updateObj: ${JSON.stringify(updateObj, null, 2)}`);
     await Post.findByIdAndUpdate(req.params.postId, updateObj);
     res.redirect(`/post/${req.params.postId}`);
 };

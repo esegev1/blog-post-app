@@ -20,7 +20,7 @@ const imgUploadPath = process.env.IMG_UPLOAD_PATH;
 app.use(express.static(process.env.PUBLIC_PATH));
 
 // Serve uploaded files publicly
-app.use('/uploads', express.static(path.join(__dirname, process.env.IMG_UPLOAD_PATH)));
+app.use('/uploads', express.static(process.env.IMG_UPLOAD_PATH));
 
 //middleware to passing a form
 app.use(express.urlencoded({ extended: false }));
@@ -31,7 +31,6 @@ mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on('connected', () => {
     console.log(`Connectd to MongoDB ${mongoose.connection.name}`);
 });
-
 
 app.get('/', postCtrl.index); //new post
 app.get('/post/:postId', postCtrl.show); //post preview
